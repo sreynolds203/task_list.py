@@ -5,7 +5,7 @@ from tkcalendar import DateEntry
 from ttkthemes import ThemedTk
 from datetime import datetime
 
-conn = psycopg2.connect(host='192.168.0.33',
+conn = psycopg2.connect(host='localhost',
                         port='5432',
                         user='pi',
                         password='server',
