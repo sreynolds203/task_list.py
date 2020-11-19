@@ -1,11 +1,11 @@
 import psycopg2
-from tkinter import Listbox, StringVar, Toplevel, messagebox
+from tkinter import Listbox, StringVar, Toplevel, messagebox, ttk
 from tkinter.ttk import Combobox, Label, Entry, Button
 from tkcalendar import DateEntry
 from ttkthemes import ThemedTk
 from datetime import datetime
 
-conn = psycopg2.connect(host='localhost',
+conn = psycopg2.connect(host='192.168.0.33',
                         port='5432',
                         user='pi',
                         password='server',
@@ -17,8 +17,11 @@ cur = conn.cursor()
 def add_task():
     at = Toplevel(root)
     at.title('New Task')
-    at.geometry('550x300')
+    at.geometry('550x320')
     at.configure(bg='gray20')
+
+    style = ttk.Style()
+    style.configure('TButton', foreground='orange')
 
     at_name = Label(at, text='Task Name:')
     at_name.grid(column=0,
@@ -91,14 +94,14 @@ def add_task():
         update_list()
         at.destroy()
 
-    save_button = Button(at, text='Save', command=save_task)
+    save_button = Button(at, text='Save', command=save_task, style='TButton')
     save_button.grid(column=2,
                      row=6,
                      padx=10,
                      pady=10,
                      sticky='e')
 
-    cancel_button = Button(at, text='Cancel', command=at.destroy)
+    cancel_button = Button(at, text='Cancel', command=at.destroy, style='TButton')
     cancel_button.grid(column=3,
                        row=6,
                        padx=10,
@@ -184,11 +187,13 @@ def update_list():
         count += 1
 
 
-root = ThemedTk(theme='plastik')
+root = ThemedTk(theme='equilux')
 root.title('Task List')
 root.geometry('550x500')
 root.configure(bg='gray20')
 
+style = ttk.Style()
+style.configure('TButton', foreground='orange')
 
 _list = Listbox(root, height=10, bg='gray12')
 _list.grid(column=0,
@@ -199,21 +204,21 @@ _list.grid(column=0,
            sticky='nsew')
 update_list()
 
-new_button = Button(root, text='New', command=add_task)
+new_button = Button(root, text='New', command=add_task, style='TButton')
 new_button.grid(column=1,
                 row=1,
                 padx=2,
                 pady=2,
                 sticky='w')
 
-delete_button = Button(root, text='Delete', command=del_task)
+delete_button = Button(root, text='Delete', command=del_task, style='TButton')
 delete_button.grid(column=2,
                    row=1,
                    padx=2,
                    pady=2,
                    sticky='w')
 
-comp_button = Button(root, text='Completed', command=comp_task)
+comp_button = Button(root, text='Completed', command=comp_task, style='TButton')
 comp_button.grid(column=3,
                  row=1,
                  padx=2,
